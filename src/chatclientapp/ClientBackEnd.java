@@ -9,8 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javafx.application.Platform;
 import message.ChatMessage;
 
 /**
@@ -22,11 +21,12 @@ public class ClientBackEnd implements Runnable{
     private Socket clientSocket;
     private ObjectOutputStream output;
     private ObjectInputStream input;
-
-    public ClientBackEnd() {
+    private FXMLDocumentController controller;
+    public ClientBackEnd(FXMLDocumentController controller) {
         try {
-            clientSocket = new Socket("localhost",3010); //localhost = 127.0.0.1
-        } catch (IOException ex) {
+            clientSocket = new Socket("localhost",3010);// localhost = 127.0.0.1 / Yrittää välittömästi ottaa yhteyden kyseiseen osoitteeseen
+            this.controller = controller;
+        } catch (IOException ex) {                      // Jos ei onnistu, tapahtuu poikkeus
             ex.printStackTrace();
         }
         
@@ -36,7 +36,7 @@ public class ClientBackEnd implements Runnable{
     public void run() {        //run-funktiota kutsutaan VAIN KERRAN! Säiettä ei voi käynnistää uudelleen!
         try {
             output = new ObjectOutputStream(clientSocket.getOutputStream());    // Näiden järjestyksellä ON MERKITYS:
-            input = new ObjectInputStream(clientSocket.getInputStream());       // ensin output(kirjoitus), sitten input(luku) !
+            input = new ObjectInputStream(clientSocket.getInputStream());       // ensin output, sitten input!
             } 
         catch (IOException ex) {
             ex.printStackTrace();
@@ -44,9 +44,15 @@ public class ClientBackEnd implements Runnable{
         
         while(true){
             try {
-                ChatMessage m = (ChatMessage)input.readObject();
-                System.out.println(m.getChatMessage());             //Tulostetaan chatMessage
-            } 
+                final ChatMessage m = (ChatMessage)input.readObject();    // Tämä toissijainen säie jää odottamaan, että jotain tapahtuu (tulee dataa)
+                // Laitetaan seuraava EDT (Event Dispatcher Thread) jonoon ja ajetaan se kun on aikaa
+                Platform.runLater(new Runnable(){
+                    @Override
+                    public void run(){
+                        controller.updateTextArea(m.getUserName() + ": " + m.getChatMessage());
+                    }
+                } );
+            }    
             catch (IOException | ClassNotFoundException ex) 
             {
                 ex.printStackTrace();

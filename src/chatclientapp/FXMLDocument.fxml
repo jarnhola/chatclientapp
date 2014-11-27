@@ -6,9 +6,41 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chatclientapp.FXMLDocumentController">
-    <children>
-        <Button layoutX="126" layoutY="90" text="Click Me!" onAction="#handleButtonAction" fx:id="button" />
-        <Label layoutX="126" layoutY="120" minHeight="16" minWidth="69" fx:id="label" />
-    </children>
-</AnchorPane>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chatclientapp.FXMLDocumentController">
+   <center>
+      <TextArea fx:id="chatMessageArea" editable="false" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+   <bottom>
+      <HBox prefHeight="26.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="chatMessage" prefHeight="25.0" prefWidth="530.0" />
+            <Button fx:id="sendButton" mnemonicParsing="false" onAction="#sendChatMessage" prefHeight="25.0" prefWidth="71.0" text="Send" />
+         </children>
+      </HBox>
+   </bottom>
+   <top>
+      <MenuBar visible="false" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Session">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="Start" />
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Change">
+            <items>
+              <MenuItem mnemonicParsing="false" text="User Name" />
+                  <MenuItem mnemonicParsing="false" text="Font Color" />
+                  <MenuItem mnemonicParsing="false" text="Font Size" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>
