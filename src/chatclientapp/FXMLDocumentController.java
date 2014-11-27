@@ -9,10 +9,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import message.ChatMessage;
 
 /**
@@ -34,11 +38,10 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     public void sendChatMessage (ActionEvent ae) {
         ChatMessage cm = new ChatMessage();
-        String name = cm.getUserName();
+        //String name = cm.getUserName();
         
-        // Tsekataan onko nimeä vielä annettu.
         if(nimi==null) {
-            handleUserName(cm);
+            handleUserName(cm); // Jos ei vielä nimeä, ajaetaan sille funktio
         }
         else{
             cm.setUserName(nimi);
@@ -55,9 +58,8 @@ public class FXMLDocumentController implements Initializable {
                         chatMessage.requestFocus();         // Asetetaan focus chatMessage -fieldiin
                         ChatMessage cm = new ChatMessage();
                         String name = cm.getUserName();
-                        // Jos ei ole vielä annettu nimeä, niin pyydetään sitä
                         if(name==null){
-                            updateTextArea("Please give the user name");
+                            updateTextArea("***\nPlease give the user name"); // Jos ei ole vielä annettu nimeä, niin pyydetään sitä
                         }
                     }
                 } );
@@ -69,12 +71,46 @@ public class FXMLDocumentController implements Initializable {
     
     public void updateTextArea(String message){
         chatMessageArea.appendText(message + "\n");
+        chatMessage.clear();
     }
     
+    /**
+     * 
+     * @param cm 
+     */
     public void handleUserName(ChatMessage cm){
         nimi = chatMessage.getText();
         cm.setUserName(nimi);
         chatMessage.clear();
-        updateTextArea("Welcome to the chat, " + nimi + "!");
+        updateTextArea("Welcome to the chat, " + nimi + "!\n***");
+    }
+    
+    /*public void keyHandler() {
+        // handler for enter key press / release events, other keys are
+        // handled by the parent (keyboard) node handler
+        final EventHandler<KeyEvent> keyEventHandler =
+                new EventHandler<KeyEvent>() {
+                    public void handle(final KeyEvent keyEvent) {
+                        if (keyEvent.getCode() == KeyCode.ENTER) {
+
+                        }
+                    }
+                };
+    }*/
+    
+    public void handleClose(){
+        Platform.exit();
+    }
+    public void handleFontSize12(){
+        
+    }
+    public void handleFontSize16(){
+        
+    }
+    public void handleBlackFontColor(){
+        
+    }
+    public void handleRedFontColor(){
+        
     }
 }

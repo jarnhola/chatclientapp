@@ -20,19 +20,28 @@
       </HBox>
    </bottom>
    <top>
-      <MenuBar visible="false" BorderPane.alignment="CENTER">
+      <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Session">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Start" />
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" onAction="#handleClose" text="Close" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Change">
+          <Menu mnemonicParsing="false" text="Edit">
             <items>
               <MenuItem mnemonicParsing="false" text="User Name" />
-                  <MenuItem mnemonicParsing="false" text="Font Color" />
-                  <MenuItem mnemonicParsing="false" text="Font Size" />
+                  <Menu mnemonicParsing="false" text="Font Size">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#handleFontSize12" text="12" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleFontSize16" text="16" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Font Color">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleBlackFontColor" text="Black" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleRedFontColor" text="Red" />
+                    </items>
+                  </Menu>
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
