@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chatclientapp.FXMLDocumentController">
+   <center>
+      <javafx.scene.text.TextFlow fx:id="chatMessageArea" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets left="10.0" />
+         </BorderPane.margin></javafx.scene.text.TextFlow>
+   </center>
+   <bottom>
+      <HBox prefHeight="26.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="chatMessage" onKeyPressed="#handleEnterKey" prefHeight="25.0" prefWidth="530.0" />
+            <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleSendButton" prefHeight="25.0" prefWidth="71.0" text="Send" />
+         </children>
+      </HBox>
+   </bottom>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Session">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleClose" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="User Name" />
+                  <Menu mnemonicParsing="false" text="Font Size">
+                    <items>
+                        <RadioMenuItem fx:id="fontSize12" mnemonicParsing="false" text="12" />
+                        <RadioMenuItem fx:id="fontSize16" mnemonicParsing="false" text="16" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Font Color">
+                    <items>
+                        <RadioMenuItem fx:id="fontColorBlack" mnemonicParsing="false" selected="true" text="Black" />
+                        <RadioMenuItem fx:id="fontColorBlue" mnemonicParsing="false" text="Blue" />
+                        <RadioMenuItem fx:id="fontColorRed" mnemonicParsing="false" text="Red" />
+                        <RadioMenuItem fx:id="fontColorGreen" mnemonicParsing="false" text="Green" />
+                    </items>
+                  </Menu>
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <effect>
+      <InnerShadow />
+   </effect>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <right>
+      <ListView fx:id="userListView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>
