@@ -10,7 +10,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import javafx.application.Platform;
-import javafx.scene.paint.Color;
 import message.ChatMessage;
 
 /**
@@ -56,7 +55,7 @@ public class ClientBackEnd implements Runnable{
                 Platform.runLater(new Runnable(){
                     @Override
                     public void run(){
-                        controller.updateTextArea(m.getUserName() + ": " + m.getChatMessage() + "\n", m.getMessageColor());
+                        controller.updateTextArea(m.getUserName() + ": " + m.getChatMessage() + "\n", m.getMessageColor(), m.getFontSize());
                     }
                 } );
             }    
